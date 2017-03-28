@@ -30,7 +30,16 @@ def update_counter(file_name, reset=False):
     >>> update_counter('blah2.txt')
     2
     """
-    pass
+    if exists(file_name): #checks if it exists
+        c = load(open(file_name, 'rb+')) # c is counter
+        if reset: #checks if the reset is true
+            c = 0
+        c += 1
+        dump(c, open(file_name, 'wb')) #put c into pickle
+    else:
+        c = 1
+        dump(c, open(file_name, 'wb')) #this is for initialization
+    return c
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
